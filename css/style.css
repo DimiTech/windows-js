@@ -1,0 +1,5 @@
+.js-window {
+  position: fixed;
+  border: 2px inset;
+  background-color: white;
+}

@@ -9,12 +9,12 @@
         .forEach(w => this.addWindow(w))
     }
 
-    addWindow(w) {
+    addWindow(window) {
       this.windows.push(new Window(
         this,
-        w,
+        window,
         this.windows.length + 1,
-        w.dataset
+        window.dataset
       ))
     }
 
@@ -91,4 +91,27 @@
 
   const windowManager = new WindowManager()
 
-})()
+  //////////////////////////////////////////////////////////////////////////////
+  // Published API
+  //////////////////////////////////////////////////////////////////////////////
+
+  function addWindow(windowModel) {
+    const windowDomElement = document.createElement('div')
+    windowDomElement.setAttribute('class', WINDOW_CLASS_IDENTIFIER)
+    windowDomElement.setAttribute('data-width',  windowModel.w)
+    windowDomElement.setAttribute('data-height', windowModel.h)
+    windowDomElement.setAttribute('data-x', windowModel.x)
+    windowDomElement.setAttribute('data-y', windowModel.y)
+    document.body.appendChild(windowDomElement)
+    windowManager.addWindow(windowDomElement)
+
+    // Returned API
+    return {
+      // destroy()
+    }
+  }
+
+  global.WINDOWS_JS = {
+    addWindow,
+  }
+})(global = window)

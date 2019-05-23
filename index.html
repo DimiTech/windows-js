@@ -5,11 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="css/style.css">
+    <style>
+      /* Styles related only to the demo */
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 150px;
+        position: fixed;
+        z-index: 999;
+        right: 0;
+        border: 1px solid #ddd;
+        padding: 6px;
+      }
+      form > label {
+        font-size: 10px;
+        font-family: monospace;
+        width: 100%;
+        display: flex;
+        margin-bottom: 4px;
+      }
+      form > label > input {
+        flex: 1;
+      }
+    </style>
     
     <title>Windows.js Demo</title>
   </head>
   <body>
       
+    <form id="add-window-form">
+      <label for="x">x: <input id="x" type="number" placeholder="x" value="150"></label>
+      <label for="y">y: <input id="y" type="number" placeholder="y" value="20"></label>
+      <label for="w">w: <input id="w" type="number" placeholder="w" value="200"></label>
+      <label for="h">h: <input id="h" type="number" placeholder="h" value="400"></label>
+      <button type="submit">Add Window</button>
+    </form>
+
     <div
       class="js-window"
       data-width="300"
@@ -33,7 +64,7 @@
     <div
       class="js-window"
       data-width="200"
-      data-height="400"
+      data-height="300"
       data-x="50"
       data-y="50"
     >
@@ -42,5 +73,17 @@
 
       
     <script src="js/windows.js"></script>
+    <script>
+      const form = document.getElementById('add-window-form')
+      form.addEventListener('submit', e => {
+        WINDOWS_JS.addWindow({
+          x: document.getElementById('x').value,
+          y: document.getElementById('y').value,
+          w: document.getElementById('w').value,
+          h: document.getElementById('h').value,
+        })
+        return e.preventDefault()
+      })
+    </script>
   </body>
 </html>

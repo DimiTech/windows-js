@@ -95,6 +95,18 @@
         'N': { 
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-n`)[0],
           isMouseDown: false,
+          moveHandler: e => {
+            const newY = e.clientY
+            const newHeight = this.y + this.height - newY
+            if (newHeight >= Window.MIN_HEIGHT) {
+              this.setHeight(newHeight)
+              this.setY(newY)
+            }
+            else {
+              this.setY(this.y + this.height - Window.MIN_HEIGHT)
+              this.setHeight(Window.MIN_HEIGHT)
+            }
+          },
         },
         'NE': { 
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-ne`)[0],
@@ -103,25 +115,55 @@
         'E': { 
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-e`)[0],
           isMouseDown: false,
+          moveHandler: e => {
+            const newWidth = e.clientX - this.x
+            if (newWidth >= Window.MIN_WIDTH) {
+              this.setWidth(newWidth)
+            }
+            else {
+              this.setWidth(Window.MIN_WIDTH)
+            }
+          }
         },
         'SE': { 
-          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-ne`)[0],
+          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-se`)[0],
           isMouseDown: false,
         },
         'S': { 
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-s`)[0],
           isMouseDown: false,
+          moveHandler: e => {
+            const newHeight = e.clientY - this.y
+            if (newHeight >= Window.MIN_HEIGHT) {
+              this.setHeight(newHeight)
+            }
+            else {
+              this.newHeight(Window.MIN_HEIGHT)
+            }
+          },
         },
         'SW': { 
-          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-ne`)[0],
+          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-sw`)[0],
           isMouseDown: false,
         },
         'W': { 
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-w`)[0],
           isMouseDown: false,
+          moveHandler: e => {
+            const newX = e.clientX
+            const newWidth = this.x + this.width - newX
+            if (newWidth >= Window.MIN_WIDTH) {
+              this.setWidth(newWidth)
+              this.setX(newX)
+            }
+            else {
+              this.setX(this.x + this.width - Window.MIN_WIDTH)
+              this.setWidth(Window.MIN_WIDTH)
+            }
+          }
         },
         'NW': { 
-          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-ne`)[0],
+          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-nw`)[0],
           isMouseDown: false,
         },
       }
@@ -168,46 +210,32 @@
 
         // Resize handlers
         if (this.resizeHandles['N'].isMouseDown) {
-          const newY = e.clientY
-          const newHeight = this.y + this.height - newY
-          if (newHeight >= Window.MIN_HEIGHT) {
-            this.setHeight(newHeight)
-            this.setY(newY)
-          }
-          else {
-            this.setY(this.y + this.height - Window.MIN_HEIGHT)
-            this.setHeight(Window.MIN_HEIGHT)
-          }
+          this.resizeHandles['N'].moveHandler(e)
+        }
+        if (this.resizeHandles['NE'].isMouseDown) {
+          this.resizeHandles['N'].moveHandler(e)
+          this.resizeHandles['E'].moveHandler(e)
         }
         if (this.resizeHandles['E'].isMouseDown) {
-          const newWidth = e.clientX - this.x
-          if (newWidth >= Window.MIN_WIDTH) {
-            this.setWidth(newWidth)
-          }
-          else {
-            this.setWidth(Window.MIN_WIDTH)
-          }
+          this.resizeHandles['E'].moveHandler(e)
+        }
+        if (this.resizeHandles['SE'].isMouseDown) {
+          this.resizeHandles['S'].moveHandler(e)
+          this.resizeHandles['E'].moveHandler(e)
         }
         if (this.resizeHandles['S'].isMouseDown) {
-          const newHeight = e.clientY - this.y
-          if (newHeight >= Window.MIN_HEIGHT) {
-            this.setHeight(newHeight)
-          }
-          else {
-            this.newHeight(Window.MIN_HEIGHT)
-          }
+          this.resizeHandles['S'].moveHandler(e)
+        }
+        if (this.resizeHandles['SW'].isMouseDown) {
+          this.resizeHandles['S'].moveHandler(e)
+          this.resizeHandles['W'].moveHandler(e)
         }
         if (this.resizeHandles['W'].isMouseDown) {
-          const newX = e.clientX
-          const newWidth = this.x + this.width - newX
-          if (newWidth >= Window.MIN_WIDTH) {
-            this.setWidth(newWidth)
-            this.setX(newX)
-          }
-          else {
-            this.setX(this.x + this.width - Window.MIN_WIDTH)
-            this.setWidth(Window.MIN_WIDTH)
-          }
+          this.resizeHandles['W'].moveHandler(e)
+        }
+        if (this.resizeHandles['NW'].isMouseDown) {
+          this.resizeHandles['N'].moveHandler(e)
+          this.resizeHandles['W'].moveHandler(e)
         }
       })
 
@@ -303,19 +331,23 @@
 
 
     const resizeHandleDomElements = {
-      'N': document.createElement('div'),
-      'E': document.createElement('div'),
-      'S': document.createElement('div'),
-      'W': document.createElement('div'),
+      'N'  : document.createElement('div'),
+      'NE' : document.createElement('div'),
+      'E'  : document.createElement('div'),
+      'SE' : document.createElement('div'),
+      'S'  : document.createElement('div'),
+      'SW' : document.createElement('div'),
+      'W'  : document.createElement('div'),
+      'NW' : document.createElement('div'),
     }
     resizeHandleDomElements['N' ].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
-    resizeHandleDomElements['NE'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
+    resizeHandleDomElements['NE'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-ne`)
     resizeHandleDomElements['E' ].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-e`)
-    resizeHandleDomElements['SE'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
+    resizeHandleDomElements['SE'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-se`)
     resizeHandleDomElements['S' ].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-s`)
-    resizeHandleDomElements['SW'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
-    resizeHandleDomElements['W' ].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-s`)
-    resizeHandleDomElements['SW'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
+    resizeHandleDomElements['SW'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-sw`)
+    resizeHandleDomElements['W' ].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-w`)
+    resizeHandleDomElements['NW'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-nw`)
 
     windowDomElement.appendChild(windowTitleDomElement)
     windowDomElement.appendChild(resizeHandleDomElements['N' ])
@@ -325,7 +357,7 @@
     windowDomElement.appendChild(resizeHandleDomElements['S' ])
     windowDomElement.appendChild(resizeHandleDomElements['SW'])
     windowDomElement.appendChild(resizeHandleDomElements['W' ])
-    windowDomElement.appendChild(resizeHandleDomElements['SW'])
+    windowDomElement.appendChild(resizeHandleDomElements['NW'])
 
     document.body.appendChild(windowDomElement)
     windowManager.addWindow(windowDomElement)

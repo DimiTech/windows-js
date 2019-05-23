@@ -76,7 +76,6 @@
 
 .js-window-handle-n {
   cursor: ns-resize;
-  background-color: rgba(255, 0, 255, 0.3);
   position: absolute;
   left: 4px;
   top: -7px;
@@ -86,7 +85,6 @@
 
 .js-window-handle-ne {
   cursor: nesw-resize;
-  background-color: rgba(0, 255, 255, 0.3);
   position: absolute;
   right: -7px;
   top: -7px;
@@ -96,7 +94,6 @@
 
 .js-window-handle-e {
   cursor: ew-resize;
-  background-color: rgba(255, 0, 255, 0.3);
   position: absolute;
   right: -7px;
   top: 4px;
@@ -106,7 +103,6 @@
 
 .js-window-handle-se {
   cursor: nwse-resize;
-  background-color: rgba(0, 255, 255, 0.3);
   position: absolute;
   right: -7px;
   bottom: -7px;
@@ -116,7 +112,6 @@
 
 .js-window-handle-s {
   cursor: ns-resize;
-  background-color: rgba(255, 0, 255, 0.3);
   position: absolute;
   left: 4px;
   bottom: -7px;
@@ -126,7 +121,6 @@
 
 .js-window-handle-sw {
   cursor: nesw-resize;
-  background-color: rgba(0, 255, 255, 0.3);
   position: absolute;
   left: -7px;
   bottom: -7px;
@@ -136,7 +130,6 @@
 
 .js-window-handle-w {
   cursor: ew-resize;
-  background-color: rgba(255, 0, 255, 0.3);
   position: absolute;
   left: -7px;
   top: 4px;
@@ -146,7 +139,6 @@
 
 .js-window-handle-nw {
   cursor: nwse-resize;
-  background-color: rgba(0, 255, 255, 0.3);
   position: absolute;
   left: -7px;
   top: -7px;

@@ -1,7 +1,7 @@
 .js-window {
   position: fixed;
   border: 2px outset;
-  background-color: white;
+  background-color: Gainsboro;
   font-family: monospace;
 
   /* Disable text selection */
@@ -56,3 +56,20 @@
   padding: 0 3px;
   border: 1px outset;
 }
+
+.js-window-pane {
+  width: 100%;
+  height: calc(100% - 20px);
+  background-color: white;
+  display: flex;
+  align-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.js-window-pane-item {
+  background: url(/img/folder_98_32x32.png) no-repeat 0 0;
+  height: 32px;
+  width: 32px;
+}
+

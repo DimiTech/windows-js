@@ -104,6 +104,10 @@
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-s`)[0],
           isMouseDown: false,
         },
+        'W': { 
+          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-w`)[0],
+          isMouseDown: false,
+        },
       }
 
       // Events
@@ -128,17 +132,21 @@
         this.resizeHandles['N'].isMouseDown = false
         this.resizeHandles['E'].isMouseDown = false
         this.resizeHandles['S'].isMouseDown = false
+        this.resizeHandles['W'].isMouseDown = false
       })
       this.titleDomElement.addEventListener('mousedown', e => {
         this.isMouseDownOnTitle = true
         this.mouseDx = e.clientX - this.x
         this.mouseDy = e.clientY - this.y
       })
-      document.addEventListener('mousemove', e => {  // This one is global
+      document.addEventListener('mousemove', e => { // This one is global
+        // Title handler
         if (this.isMouseDownOnTitle) {
           this.setX(e.clientX - this.mouseDx)
           this.setY(e.clientY - this.mouseDy)
         }
+
+        // Resize handlers
         if (this.resizeHandles['N'].isMouseDown) {
           const newY = e.clientY
           const newHeight = this.y + this.height - newY
@@ -169,6 +177,18 @@
             this.newHeight(Window.MIN_HEIGHT)
           }
         }
+        if (this.resizeHandles['W'].isMouseDown) {
+          const newX = e.clientX
+          const newWidth = this.x + this.width - newX
+          if (newWidth >= Window.MIN_WIDTH) {
+            this.setWidth(newWidth)
+            this.setX(newX)
+          }
+          else {
+            this.setX(this.x + this.width - Window.MIN_WIDTH)
+            this.setWidth(Window.MIN_WIDTH)
+          }
+        }
       })
 
       // Control buttons
@@ -188,6 +208,9 @@
       })
       this.resizeHandles['S'].domElement.addEventListener('mousedown', e => {
         this.resizeHandles['S'].isMouseDown = true
+      })
+      this.resizeHandles['W'].domElement.addEventListener('mousedown', e => {
+        this.resizeHandles['W'].isMouseDown = true
       })
     }
 
@@ -251,15 +274,18 @@
       'N': document.createElement('div'),
       'E': document.createElement('div'),
       'S': document.createElement('div'),
+      'W': document.createElement('div'),
     }
     resizeHandleDomElements['N'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
     resizeHandleDomElements['E'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-e`)
     resizeHandleDomElements['S'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-s`)
+    resizeHandleDomElements['W'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-s`)
 
     windowDomElement.appendChild(windowTitleDomElement)
     windowDomElement.appendChild(resizeHandleDomElements['N'])
     windowDomElement.appendChild(resizeHandleDomElements['E'])
     windowDomElement.appendChild(resizeHandleDomElements['S'])
+    windowDomElement.appendChild(resizeHandleDomElements['W'])
 
     document.body.appendChild(windowDomElement)
     windowManager.addWindow(windowDomElement)

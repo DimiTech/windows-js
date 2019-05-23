@@ -102,6 +102,12 @@
     windowDomElement.setAttribute('data-height', windowModel.h)
     windowDomElement.setAttribute('data-x', windowModel.x)
     windowDomElement.setAttribute('data-y', windowModel.y)
+
+    const windowTitleDomElement = document.createElement('div')
+    windowTitleDomElement.setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-title`)
+    windowTitleDomElement.textContent = windowModel.title || ''
+    windowDomElement.appendChild(windowTitleDomElement)
+
     document.body.appendChild(windowDomElement)
     windowManager.addWindow(windowDomElement)
 

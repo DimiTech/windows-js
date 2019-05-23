@@ -1,5 +1,30 @@
 .js-window {
   position: fixed;
-  border: 2px inset;
+  border: 2px outset;
   background-color: white;
+  font-family: monospace;
+}
+
+.js-window-title {
+  height: 16px;
+  padding: 2px 6px;
+
+  color: white;
+  font-size: 12px;
+  font-style: MS Sans Serif, sans-serif;
+
+  /* Prevent the text from wraping, just cut it as it overflows */
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+
+  /* Gradient with a background color fallback */
+  background: rgba(10,36,105,1);
+  background: -moz-linear-gradient(left, rgba(10,36,105,1) 0%, rgba(166,203,240,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(10,36,105,1)), color-stop(100%, rgba(166,203,240,1)));
+  background: -webkit-linear-gradient(left, rgba(10,36,105,1) 0%, rgba(166,203,240,1) 100%);
+  background: -o-linear-gradient(left, rgba(10,36,105,1) 0%, rgba(166,203,240,1) 100%);
+  background: -ms-linear-gradient(left, rgba(10,36,105,1) 0%, rgba(166,203,240,1) 100%);
+  background: linear-gradient(to right, rgba(10,36,105,1) 0%, rgba(166,203,240,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0a2469', endColorstr='#a6cbf0', GradientType=1 );
 }

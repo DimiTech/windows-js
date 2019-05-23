@@ -38,6 +38,7 @@
       <label for="y">y: <input id="y" type="number" placeholder="y" value="20"></label>
       <label for="w">w: <input id="w" type="number" placeholder="w" value="200"></label>
       <label for="h">h: <input id="h" type="number" placeholder="h" value="400"></label>
+      <label for="title">t: <input id="title" type="text" placeholder="title" value=""></label>
       <button type="submit">Add Window</button>
     </form>
 
@@ -48,7 +49,9 @@
       data-x="100"
       data-y="100"
     >
-      1
+      <div class="js-window-title">
+        Title 1
+      </div>
     </div>
 
     <div
@@ -58,7 +61,9 @@
       data-x="0"
       data-y="0"
     >
-      2
+      <div class="js-window-title">
+        Title 2
+      </div>
     </div>
 
     <div
@@ -68,7 +73,9 @@
       data-x="50"
       data-y="50"
     >
-      3
+      <div class="js-window-title">
+        Title 3
+      </div>
     </div>
 
       
@@ -77,10 +84,11 @@
       const form = document.getElementById('add-window-form')
       form.addEventListener('submit', e => {
         WINDOWS_JS.addWindow({
-          x: document.getElementById('x').value,
-          y: document.getElementById('y').value,
-          w: document.getElementById('w').value,
-          h: document.getElementById('h').value,
+          x:     document.getElementById('x').value,     // required
+          y:     document.getElementById('y').value,     // required
+          w:     document.getElementById('w').value,     // required
+          h:     document.getElementById('h').value,     // required
+          title: document.getElementById('title').value, // optional
         })
         return e.preventDefault()
       })

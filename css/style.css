@@ -15,7 +15,7 @@
 
 .js-window-title {
   height: 16px;
-  padding: 2px 6px;
+  padding: 2px 4px;
 
   color: white;
   font-size: 12px;
@@ -47,6 +47,14 @@
   background: -ms-linear-gradient(left, rgba(10,36,105,1) 0%, rgba(166,203,240,1) 100%);
   background: linear-gradient(to right, rgba(10,36,105,1) 0%, rgba(166,203,240,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0a2469', endColorstr='#a6cbf0', GradientType=1 );
+}
+
+.js-window-title-icon {
+  background: url(/img/folder_98_16x16.png) no-repeat 0 0;
+  float: left;
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
 }
 
 .js-window-btn-close {

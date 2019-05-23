@@ -1,17 +1,74 @@
 (() => {
+  const WINDOW_CLASS_IDENTIFIER = 'js-window'
+
+  class WindowManager {
+    constructor() {
+      this.windows = []
+      
+      Array.from(document.getElementsByClassName(WINDOW_CLASS_IDENTIFIER))
+        .forEach(w => this.addWindow(w))
+    }
+
+    addWindow(w) {
+      this.windows.push(new Window(
+        this,
+        w,
+        this.windows.length + 1,
+        w.dataset
+      ))
+    }
+
+    focusOnWindow(window) {
+      const maxZIndex = this.getTopmostWindowZIndex()
+      this.windows.forEach(w => {
+        if (w === window) {
+          w.setZIndex(maxZIndex)
+        }
+        else {
+          w.decrementZIndex()
+        }
+      })
+    }
+
+    getTopmostWindowZIndex() {
+      return this.windows.reduce((maxZIndex, currentWindow) => {
+        return Math.max(maxZIndex, currentWindow.zIndex)
+      }, -Infinity)
+    }
+  }
+
   class Window {
-    constructor(domElement, options) {
+    constructor(windowManager, domElement, zIndex, dataset) {
+      this.windowManager = windowManager
       this.domElement = domElement
       const {
         x,
         y,
         width,
         height
-      } = options
+      } = dataset
       this.setX(x)
       this.setY(y)
       this.setWidth(width)
       this.setHeight(height)
+      this.setZIndex(zIndex)
+      this.addEventListeners()
+    }
+
+    addEventListeners() {
+      this.domElement.addEventListener('click', e => {
+        this.windowManager.focusOnWindow(this)
+      })
+    }
+
+    setZIndex(zIndex) {
+      this.zIndex = zIndex
+      this.domElement.style.zIndex = this.zIndex
+    }
+
+    decrementZIndex() {
+      --this.zIndex
+      this.domElement.style.zIndex = this.zIndex
     }
 
     setX(x) {
@@ -32,13 +89,6 @@
     }
   }
 
-  const WINDOW_CLASS_IDENTIFIER = 'js-window'
-  const WINDOWS = Array.from(document.getElementsByClassName(WINDOW_CLASS_IDENTIFIER))
-    .map(w => new Window(w, w.dataset))
+  const windowManager = new WindowManager()
 
-  drawWindows(WINDOWS)
-
-  function drawWindows(windows) {
-    console.log(windows)
-  }
 })()

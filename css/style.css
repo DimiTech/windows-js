@@ -26,7 +26,19 @@
   overflow: hidden;
   max-width: 100%;
 
-  /* Gradient with a background color fallback */
+  /* Unfocused gradient with a background color fallback */
+  background: rgba(123,123,123,1);
+  background: -moz-linear-gradient(left, rgba(123,123,123,1) 0%, rgba(173,173,173,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(123,123,123,1)), color-stop(100%, rgba(173,173,173,1)));
+  background: -webkit-linear-gradient(left, rgba(123,123,123,1) 0%, rgba(173,173,173,1) 100%);
+  background: -o-linear-gradient(left, rgba(123,123,123,1) 0%, rgba(173,173,173,1) 100%);
+  background: -ms-linear-gradient(left, rgba(123,123,123,1) 0%, rgba(173,173,173,1) 100%);
+  background: linear-gradient(to right, rgba(123,123,123,1) 0%, rgba(173,173,173,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7b7b7b', endColorstr='#adadad', GradientType=1 );
+}
+
+.js-window-title-focused {
+  /* Foucsed gradient with a background color fallback */
   background: rgba(10,36,105,1);
   background: -moz-linear-gradient(left, rgba(10,36,105,1) 0%, rgba(166,203,240,1) 100%);
   background: -webkit-gradient(left top, right top, color-stop(0%, rgba(10,36,105,1)), color-stop(100%, rgba(166,203,240,1)));

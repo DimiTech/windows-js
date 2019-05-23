@@ -9,18 +9,32 @@
         .forEach(w => this.addWindow(w))
     }
 
-    addWindow(window) {
-      this.windows.push(new Window(
+    addWindow(windowDomElement) {
+      const window = new Window(
         this,
-        window,
+        windowDomElement,
         this.windows.length + 1,
-        window.dataset
-      ))
+        windowDomElement.dataset
+      )
+      this.windows.push(window)
+      this.focusOnWindow(window)
     }
 
     destroyWindow(window) {
       this.windows = this.windows.filter(w => w !== window)
       window.destroy()
+
+      // Focus on window with maximum z-index
+      const maxZIndex = this.getTopmostWindowZIndex()
+      this.windows.forEach(w => {
+        if (w.zIndex === maxZIndex) {
+          w.setFocused(true)
+        }
+        else {
+          w.setFocused(false)
+        }
+        w.decrementZIndex()
+      })
     }
 
     focusOnWindow(window) {
@@ -28,9 +42,11 @@
       this.windows.forEach(w => {
         if (w === window) {
           w.setZIndex(maxZIndex)
+          w.setFocused(true)
         }
         else {
           w.decrementZIndex()
+          w.setFocused(false)
         }
       })
     }
@@ -109,6 +125,14 @@
     setZIndex(zIndex) {
       this.zIndex = zIndex
       this.domElement.style.zIndex = this.zIndex
+    }
+    setFocused(isFocused) {
+      if (isFocused) {
+        this.titleDomElement.classList.add(`${WINDOW_CLASS_IDENTIFIER}-title-focused`)
+      }
+      else {
+        this.titleDomElement.classList.remove(`${WINDOW_CLASS_IDENTIFIER}-title-focused`)
+      }
     }
 
     decrementZIndex() {

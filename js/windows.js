@@ -13,7 +13,7 @@
       const window = new Window(
         this,
         windowDomElement,
-        this.windows.length + 1,
+        this.windows.length, // z-indexes match the position of the window in the array
         windowDomElement.dataset
       )
       this.windows.push(window)
@@ -25,36 +25,43 @@
       window.destroy()
 
       // Focus on window with maximum z-index
-      const maxZIndex = this.getTopmostWindowZIndex()
-      this.windows.forEach(w => {
-        if (w.zIndex === maxZIndex) {
-          w.setFocused(true)
-        }
-        else {
-          w.setFocused(false)
-        }
-        w.decrementZIndex()
-      })
+      if (this.windows.length > 0) {
+        const topmostWindow = this.getWindowWithMaxZIndex()
+        this.focusOnWindow(topmostWindow)
+      }
     }
 
     focusOnWindow(window) {
-      const maxZIndex = this.getTopmostWindowZIndex()
-      this.windows.forEach(w => {
-        if (w === window) {
-          w.setZIndex(maxZIndex)
-          w.setFocused(true)
-        }
-        else {
-          w.decrementZIndex()
-          w.setFocused(false)
-        }
-      })
+      if (this.windows.length === 0) {
+        window.setFocused(true)
+        return
+      }
+      const { zIndex: maxZIndex } = this.getWindowWithMaxZIndex()
+      window.zIndex = maxZIndex + 1
+      this.windows
+        .sort((w1, w2) => {
+          return w1.zIndex < w2.zIndex ? -1 : 1
+        })
+        .forEach((w, i) => {
+          w.setZIndex(i) // z-indexes match the position of the window in the array
+          if (i === this.windows.length - 1) {
+            w.setFocused(true)
+          }
+          else {
+            w.setFocused(false)
+          }
+        })
     }
 
-    getTopmostWindowZIndex() {
-      return this.windows.reduce((maxZIndex, currentWindow) => {
-        return Math.max(maxZIndex, currentWindow.zIndex)
-      }, -Infinity)
+    getWindowWithMaxZIndex() {
+      return this.windows.reduce((topmostWindow, currentWindow) => {
+        if (topmostWindow.zIndex > currentWindow.zIndex) {
+          return topmostWindow
+        }
+        else {
+          return currentWindow
+        }
+      }, this.windows[0])
     }
   }
 
@@ -135,10 +142,10 @@
       }
     }
 
-    decrementZIndex() {
-      --this.zIndex
-      this.domElement.style.zIndex = this.zIndex
-    }
+    // decrementZIndex() {
+    //   --this.zIndex
+    //   this.domElement.style.zIndex = this.zIndex
+    // }
 
     setX(x) {
       this.x = x

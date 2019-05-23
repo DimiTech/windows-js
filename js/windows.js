@@ -18,6 +18,11 @@
       ))
     }
 
+    destroyWindow(window) {
+      this.windows = this.windows.filter(w => w !== window)
+      window.destroy()
+    }
+
     focusOnWindow(window) {
       const maxZIndex = this.getTopmostWindowZIndex()
       this.windows.forEach(w => {
@@ -44,6 +49,7 @@
       // DOM Elements
       this.domElement = domElement
       this.titleDomElement = domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-title`)[0]
+      this.btnCloseDomElement = this.titleDomElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-btn-close`)[0]
 
       const {
         x,
@@ -64,6 +70,10 @@
       this.addEventListeners()
     }
 
+    destroy() {
+      this.domElement.parentNode.removeChild(this.domElement)
+    }
+
     addEventListeners() {
       // Focusing the window
       this.domElement.addEventListener('mousedown', e => {
@@ -73,6 +83,7 @@
       // Title dragging
       document.addEventListener('mouseup', e => { // This one is global
         this.isMouseDown = false
+        this.btnCloseDomElement.style.borderStyle = 'outset'
       })
       this.titleDomElement.addEventListener('mousedown', e => {
         this.isMouseDown = true
@@ -84,6 +95,14 @@
           this.setX(e.clientX - this.mouseDx)
           this.setY(e.clientY - this.mouseDy)
         }
+      })
+
+      // Control buttons
+      this.btnCloseDomElement.addEventListener('mousedown', e => {
+        this.btnCloseDomElement.style.borderStyle = 'inset'
+      })
+      this.btnCloseDomElement.addEventListener('click', e => {
+        this.windowManager.destroyWindow(this)
       })
     }
 
@@ -132,6 +151,12 @@
     const windowTitleDomElement = document.createElement('div')
     windowTitleDomElement.setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-title`)
     windowTitleDomElement.textContent = windowModel.title || ''
+
+    const controlBtnClose = document.createElement('span')
+    controlBtnClose.textContent = 'x'
+    controlBtnClose.setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-btn-close`)
+
+    windowTitleDomElement.appendChild(controlBtnClose)
     windowDomElement.appendChild(windowTitleDomElement)
 
     document.body.appendChild(windowDomElement)

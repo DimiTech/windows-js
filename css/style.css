@@ -14,8 +14,6 @@
 }
 
 .js-window-title {
-  cursor: move;
-
   height: 16px;
   padding: 2px 6px;
 
@@ -37,4 +35,12 @@
   background: -ms-linear-gradient(left, rgba(10,36,105,1) 0%, rgba(166,203,240,1) 100%);
   background: linear-gradient(to right, rgba(10,36,105,1) 0%, rgba(166,203,240,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0a2469', endColorstr='#a6cbf0', GradientType=1 );
+}
+
+.js-window-btn-close {
+  float: right;
+  color: #000;
+  background-color: #ddd;
+  padding: 0 3px;
+  border: 1px outset;
 }

@@ -360,7 +360,9 @@
 
     // Returned API
     return {
-      // destroy()
+      // destroy() {
+      // TODO: Maybe implement this?
+      // }
     }
   }
 

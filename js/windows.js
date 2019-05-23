@@ -117,13 +117,8 @@
           isMouseDown: false,
           moveHandler: e => {
             const newWidth = e.clientX - this.x
-            if (newWidth >= Window.MIN_WIDTH) {
-              this.setWidth(newWidth)
-            }
-            else {
-              this.setWidth(Window.MIN_WIDTH)
-            }
-          }
+            this.setWidth(newWidth)
+          },
         },
         'SE': { 
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-se`)[0],
@@ -134,12 +129,7 @@
           isMouseDown: false,
           moveHandler: e => {
             const newHeight = e.clientY - this.y
-            if (newHeight >= Window.MIN_HEIGHT) {
-              this.setHeight(newHeight)
-            }
-            else {
-              this.newHeight(Window.MIN_HEIGHT)
-            }
+            this.setHeight(newHeight)
           },
         },
         'SW': { 
@@ -160,7 +150,7 @@
               this.setX(this.x + this.width - Window.MIN_WIDTH)
               this.setWidth(Window.MIN_WIDTH)
             }
-          }
+          },
         },
         'NW': { 
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-nw`)[0],
@@ -296,10 +286,16 @@
       this.domElement.style.top = y + 'px'
     }
     setWidth(width) {
+      if (width <= Window.MIN_WIDTH) {
+        width = Window.MIN_WIDTH
+      }
       this.width = width
       this.domElement.style.width  = this.width  + 'px'
     }
     setHeight(height) {
+      if (height <= Window.MIN_HEIGHT) {
+        height = Window.MIN_HEIGHT
+      }
       this.height = height
       this.domElement.style.height = this.height + 'px'
     }

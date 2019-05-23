@@ -40,24 +40,50 @@
   class Window {
     constructor(windowManager, domElement, zIndex, dataset) {
       this.windowManager = windowManager
+
+      // DOM Elements
       this.domElement = domElement
+      this.titleDomElement = domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-title`)[0]
+
       const {
         x,
         y,
         width,
         height
       } = dataset
-      this.setX(x)
-      this.setY(y)
-      this.setWidth(width)
-      this.setHeight(height)
-      this.setZIndex(zIndex)
+
+      // Positioning
+      this.setX(parseInt(x))
+      this.setY(parseInt(y))
+      this.setWidth(parseInt(width))
+      this.setHeight(parseInt(height))
+      this.setZIndex(parseInt(zIndex))
+
+      // Events
+      this.isMouseDown = false
       this.addEventListeners()
     }
 
     addEventListeners() {
-      this.domElement.addEventListener('click', e => {
+      // Focusing the window
+      this.domElement.addEventListener('mousedown', e => {
         this.windowManager.focusOnWindow(this)
+      })
+
+      // Title dragging
+      document.addEventListener('mouseup', e => { // This one is global
+        this.isMouseDown = false
+      })
+      this.titleDomElement.addEventListener('mousedown', e => {
+        this.isMouseDown = true
+        this.mouseDx = e.clientX - this.x
+        this.mouseDy = e.clientY - this.y
+      })
+      document.addEventListener('mousemove', e => {  // This one is global
+        if (this.isMouseDown) {
+          this.setX(e.clientX - this.mouseDx)
+          this.setY(e.clientY - this.mouseDy)
+        }
       })
     }
 

@@ -96,16 +96,32 @@
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-n`)[0],
           isMouseDown: false,
         },
+        'NE': { 
+          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-ne`)[0],
+          isMouseDown: false,
+        },
         'E': { 
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-e`)[0],
+          isMouseDown: false,
+        },
+        'SE': { 
+          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-ne`)[0],
           isMouseDown: false,
         },
         'S': { 
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-s`)[0],
           isMouseDown: false,
         },
+        'SW': { 
+          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-ne`)[0],
+          isMouseDown: false,
+        },
         'W': { 
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-w`)[0],
+          isMouseDown: false,
+        },
+        'NW': { 
+          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-ne`)[0],
           isMouseDown: false,
         },
       }
@@ -129,10 +145,14 @@
       document.addEventListener('mouseup', e => { // This one is global
         this.isMouseDownOnTitle = false
         this.btnCloseDomElement.style.borderStyle = 'outset'
-        this.resizeHandles['N'].isMouseDown = false
-        this.resizeHandles['E'].isMouseDown = false
-        this.resizeHandles['S'].isMouseDown = false
-        this.resizeHandles['W'].isMouseDown = false
+        this.resizeHandles['N' ].isMouseDown = false
+        this.resizeHandles['NE'].isMouseDown = false
+        this.resizeHandles['E' ].isMouseDown = false
+        this.resizeHandles['SE'].isMouseDown = false
+        this.resizeHandles['S' ].isMouseDown = false
+        this.resizeHandles['SW'].isMouseDown = false
+        this.resizeHandles['W' ].isMouseDown = false
+        this.resizeHandles['NW'].isMouseDown = false
       })
       this.titleDomElement.addEventListener('mousedown', e => {
         this.isMouseDownOnTitle = true
@@ -203,14 +223,26 @@
       this.resizeHandles['N'].domElement.addEventListener('mousedown', e => {
         this.resizeHandles['N'].isMouseDown = true
       })
+      this.resizeHandles['NE'].domElement.addEventListener('mousedown', e => {
+        this.resizeHandles['NE'].isMouseDown = true
+      })
       this.resizeHandles['E'].domElement.addEventListener('mousedown', e => {
         this.resizeHandles['E'].isMouseDown = true
+      })
+      this.resizeHandles['SE'].domElement.addEventListener('mousedown', e => {
+        this.resizeHandles['SE'].isMouseDown = true
       })
       this.resizeHandles['S'].domElement.addEventListener('mousedown', e => {
         this.resizeHandles['S'].isMouseDown = true
       })
+      this.resizeHandles['SW'].domElement.addEventListener('mousedown', e => {
+        this.resizeHandles['SW'].isMouseDown = true
+      })
       this.resizeHandles['W'].domElement.addEventListener('mousedown', e => {
         this.resizeHandles['W'].isMouseDown = true
+      })
+      this.resizeHandles['NW'].domElement.addEventListener('mousedown', e => {
+        this.resizeHandles['NW'].isMouseDown = true
       })
     }
 
@@ -276,16 +308,24 @@
       'S': document.createElement('div'),
       'W': document.createElement('div'),
     }
-    resizeHandleDomElements['N'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
-    resizeHandleDomElements['E'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-e`)
-    resizeHandleDomElements['S'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-s`)
-    resizeHandleDomElements['W'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-s`)
+    resizeHandleDomElements['N' ].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
+    resizeHandleDomElements['NE'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
+    resizeHandleDomElements['E' ].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-e`)
+    resizeHandleDomElements['SE'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
+    resizeHandleDomElements['S' ].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-s`)
+    resizeHandleDomElements['SW'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
+    resizeHandleDomElements['W' ].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-s`)
+    resizeHandleDomElements['SW'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
 
     windowDomElement.appendChild(windowTitleDomElement)
-    windowDomElement.appendChild(resizeHandleDomElements['N'])
-    windowDomElement.appendChild(resizeHandleDomElements['E'])
-    windowDomElement.appendChild(resizeHandleDomElements['S'])
-    windowDomElement.appendChild(resizeHandleDomElements['W'])
+    windowDomElement.appendChild(resizeHandleDomElements['N' ])
+    windowDomElement.appendChild(resizeHandleDomElements['NE'])
+    windowDomElement.appendChild(resizeHandleDomElements['E' ])
+    windowDomElement.appendChild(resizeHandleDomElements['SE'])
+    windowDomElement.appendChild(resizeHandleDomElements['S' ])
+    windowDomElement.appendChild(resizeHandleDomElements['SW'])
+    windowDomElement.appendChild(resizeHandleDomElements['W' ])
+    windowDomElement.appendChild(resizeHandleDomElements['SW'])
 
     document.body.appendChild(windowDomElement)
     windowManager.addWindow(windowDomElement)

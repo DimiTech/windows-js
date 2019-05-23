@@ -84,6 +84,16 @@
   height: 11px;
 }
 
+.js-window-handle-ne {
+  cursor: nesw-resize;
+  background-color: rgba(0, 255, 255, 0.3);
+  position: absolute;
+  right: -7px;
+  top: -7px;
+  width: 11px;
+  height: 11px;
+}
+
 .js-window-handle-e {
   cursor: ew-resize;
   background-color: rgba(255, 0, 255, 0.3);
@@ -94,13 +104,33 @@
   height: calc(100% - 8px);
 }
 
+.js-window-handle-se {
+  cursor: nwse-resize;
+  background-color: rgba(0, 255, 255, 0.3);
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  width: 11px;
+  height: 11px;
+}
+
 .js-window-handle-s {
   cursor: ns-resize;
   background-color: rgba(255, 0, 255, 0.3);
   position: absolute;
   left: 4px;
-  top: calc(100% - 4px);
+  bottom: -7px;
   width: calc(100% - 8px);
+  height: 11px;
+}
+
+.js-window-handle-sw {
+  cursor: nesw-resize;
+  background-color: rgba(0, 255, 255, 0.3);
+  position: absolute;
+  left: -7px;
+  bottom: -7px;
+  width: 11px;
   height: 11px;
 }
 
@@ -112,4 +142,14 @@
   top: 4px;
   width: 11px;
   height: calc(100% - 8px);
+}
+
+.js-window-handle-nw {
+  cursor: nwse-resize;
+  background-color: rgba(0, 255, 255, 0.3);
+  position: absolute;
+  left: -7px;
+  top: -7px;
+  width: 11px;
+  height: 11px;
 }

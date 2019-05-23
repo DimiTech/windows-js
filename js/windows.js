@@ -66,6 +66,9 @@
   }
 
   class Window {
+    static MIN_WIDTH  = 100
+    static MIN_HEIGHT = 100
+
     constructor(windowManager, domElement, zIndex, dataset) {
       this.windowManager = windowManager
 
@@ -88,8 +91,15 @@
       this.setHeight(parseInt(height))
       this.setZIndex(parseInt(zIndex))
 
+      this.resizeHandles = {
+        'E': { 
+          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-e`)[0],
+          isMouseDown: false,
+        }
+      }
+
       // Events
-      this.isMouseDown = false
+      this.isMouseDownOnTitle = false
       this.addEventListeners()
     }
 
@@ -105,18 +115,28 @@
 
       // Title dragging
       document.addEventListener('mouseup', e => { // This one is global
-        this.isMouseDown = false
+        this.isMouseDownOnTitle = false
         this.btnCloseDomElement.style.borderStyle = 'outset'
+        this.resizeHandles['E'].isMouseDown = false
       })
       this.titleDomElement.addEventListener('mousedown', e => {
-        this.isMouseDown = true
+        this.isMouseDownOnTitle = true
         this.mouseDx = e.clientX - this.x
         this.mouseDy = e.clientY - this.y
       })
       document.addEventListener('mousemove', e => {  // This one is global
-        if (this.isMouseDown) {
+        if (this.isMouseDownOnTitle) {
           this.setX(e.clientX - this.mouseDx)
           this.setY(e.clientY - this.mouseDy)
+        }
+        if (this.resizeHandles['E'].isMouseDown) {
+          const newWidth = e.clientX - this.x
+          if (newWidth >= Window.MIN_WIDTH) {
+            this.setWidth(newWidth)
+          }
+          else {
+            this.setWidth(Window.MIN_WIDTH)
+          }
         }
       })
 
@@ -126,6 +146,11 @@
       })
       this.btnCloseDomElement.addEventListener('click', e => {
         this.windowManager.destroyWindow(this)
+      })
+
+      // Resize handlers
+      this.resizeHandles['E'].domElement.addEventListener('mousedown', e => {
+        this.resizeHandles['E'].isMouseDown = true
       })
     }
 
@@ -188,6 +213,13 @@
     controlBtnClose.setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-btn-close`)
 
     windowTitleDomElement.appendChild(controlBtnClose)
+
+
+    const resizeHandleDomElements = {
+      'E': document.createElement('div')
+    }
+    resizeHandleDomElements['E'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-e`)
+
     windowDomElement.appendChild(windowTitleDomElement)
 
     document.body.appendChild(windowDomElement)

@@ -73,3 +73,12 @@
   width: 32px;
 }
 
+.js-window-handle-e {
+  cursor: ew-resize;
+  background-color: rgba(255, 0, 255, 0.3);
+  position: absolute;
+  right: -7px;
+  top: 4px;
+  width: 11px;
+  height: calc(100% - 8px);
+}

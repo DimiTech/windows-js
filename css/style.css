@@ -50,7 +50,7 @@
 }
 
 .js-window-title-icon {
-  background: url(../img/folder_98_16x16.png) no-repeat 0 0;
+  background: url(../img/win-98_folder_icon_title.png) no-repeat 0 0;
   float: left;
   width: 16px;
   height: 16px;
@@ -59,10 +59,10 @@
 
 .js-window-btn-close {
   float: right;
-  color: #000;
-  background-color: #ddd;
-  padding: 0 4px;
-  border: 1px outset;
+  background: url(../img/win-98_close_btn.png) no-repeat 0 0;
+  margin-top: 1px;
+  width: 16px;
+  height: 14px;
 }
 
 .js-window-pane {
@@ -77,9 +77,10 @@
 }
 
 .js-window-pane-item {
-  background: url(../img/folder_98_32x32.png) no-repeat 0 0;
+  background: url(../img/win-98_folder_icon_large.png) no-repeat 0 0;
   height: 32px;
   width: 32px;
+  margin: 5px;
 }
 
 .js-window-handle-n {

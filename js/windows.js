@@ -176,7 +176,7 @@
       // Title dragging
       document.addEventListener('mouseup', e => { // This one is global
         this.isMouseDownOnTitle = false
-        this.btnCloseDomElement.style.borderStyle = 'outset'
+        this.btnCloseDomElement.style.backgroundImage = 'url(../img/win-98_close_btn.png)'
         this.resizeHandles['N' ].isMouseDown = false
         this.resizeHandles['NE'].isMouseDown = false
         this.resizeHandles['E' ].isMouseDown = false
@@ -231,7 +231,7 @@
 
       // Control buttons
       this.btnCloseDomElement.addEventListener('mousedown', e => {
-        this.btnCloseDomElement.style.borderStyle = 'inset'
+        this.btnCloseDomElement.style.backgroundImage = 'url(../img/win-98_close_btn_pressed.png)'
       })
       this.btnCloseDomElement.addEventListener('click', e => {
         this.windowManager.destroyWindow(this)

@@ -99,7 +99,11 @@
         'E': { 
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-e`)[0],
           isMouseDown: false,
-        }
+        },
+        'S': { 
+          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-s`)[0],
+          isMouseDown: false,
+        },
       }
 
       // Events
@@ -123,6 +127,7 @@
         this.btnCloseDomElement.style.borderStyle = 'outset'
         this.resizeHandles['N'].isMouseDown = false
         this.resizeHandles['E'].isMouseDown = false
+        this.resizeHandles['S'].isMouseDown = false
       })
       this.titleDomElement.addEventListener('mousedown', e => {
         this.isMouseDownOnTitle = true
@@ -155,6 +160,15 @@
             this.setWidth(Window.MIN_WIDTH)
           }
         }
+        if (this.resizeHandles['S'].isMouseDown) {
+          const newHeight = e.clientY - this.y
+          if (newHeight >= Window.MIN_HEIGHT) {
+            this.setHeight(newHeight)
+          }
+          else {
+            this.newHeight(Window.MIN_HEIGHT)
+          }
+        }
       })
 
       // Control buttons
@@ -171,6 +185,9 @@
       })
       this.resizeHandles['E'].domElement.addEventListener('mousedown', e => {
         this.resizeHandles['E'].isMouseDown = true
+      })
+      this.resizeHandles['S'].domElement.addEventListener('mousedown', e => {
+        this.resizeHandles['S'].isMouseDown = true
       })
     }
 
@@ -233,13 +250,16 @@
     const resizeHandleDomElements = {
       'N': document.createElement('div'),
       'E': document.createElement('div'),
+      'S': document.createElement('div'),
     }
     resizeHandleDomElements['N'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
     resizeHandleDomElements['E'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-e`)
+    resizeHandleDomElements['S'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-s`)
 
     windowDomElement.appendChild(windowTitleDomElement)
     windowDomElement.appendChild(resizeHandleDomElements['N'])
     windowDomElement.appendChild(resizeHandleDomElements['E'])
+    windowDomElement.appendChild(resizeHandleDomElements['S'])
 
     document.body.appendChild(windowDomElement)
     windowManager.addWindow(windowDomElement)

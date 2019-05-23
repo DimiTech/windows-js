@@ -93,3 +93,13 @@
   width: 11px;
   height: calc(100% - 8px);
 }
+
+.js-window-handle-s {
+  cursor: ns-resize;
+  background-color: rgba(255, 0, 255, 0.3);
+  position: absolute;
+  left: 4px;
+  top: calc(100% - 4px);
+  width: calc(100% - 8px);
+  height: 11px;
+}

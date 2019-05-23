@@ -65,12 +65,23 @@
   align-content: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
+  overflow: scroll;
 }
 
 .js-window-pane-item {
   background: url(/img/folder_98_32x32.png) no-repeat 0 0;
   height: 32px;
   width: 32px;
+}
+
+.js-window-handle-n {
+  cursor: ns-resize;
+  background-color: rgba(255, 0, 255, 0.3);
+  position: absolute;
+  left: 4px;
+  top: -7px;
+  width: calc(100% - 8px);
+  height: 11px;
 }
 
 .js-window-handle-e {

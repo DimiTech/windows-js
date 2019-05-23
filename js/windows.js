@@ -92,6 +92,10 @@
       this.setZIndex(parseInt(zIndex))
 
       this.resizeHandles = {
+        'N': { 
+          domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-n`)[0],
+          isMouseDown: false,
+        },
         'E': { 
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-e`)[0],
           isMouseDown: false,
@@ -117,6 +121,7 @@
       document.addEventListener('mouseup', e => { // This one is global
         this.isMouseDownOnTitle = false
         this.btnCloseDomElement.style.borderStyle = 'outset'
+        this.resizeHandles['N'].isMouseDown = false
         this.resizeHandles['E'].isMouseDown = false
       })
       this.titleDomElement.addEventListener('mousedown', e => {
@@ -128,6 +133,18 @@
         if (this.isMouseDownOnTitle) {
           this.setX(e.clientX - this.mouseDx)
           this.setY(e.clientY - this.mouseDy)
+        }
+        if (this.resizeHandles['N'].isMouseDown) {
+          const newY = e.clientY
+          const newHeight = this.y + this.height - newY
+          if (newHeight >= Window.MIN_HEIGHT) {
+            this.setHeight(newHeight)
+            this.setY(newY)
+          }
+          else {
+            this.setY(this.y + this.height - Window.MIN_HEIGHT)
+            this.setHeight(Window.MIN_HEIGHT)
+          }
         }
         if (this.resizeHandles['E'].isMouseDown) {
           const newWidth = e.clientX - this.x
@@ -149,6 +166,9 @@
       })
 
       // Resize handlers
+      this.resizeHandles['N'].domElement.addEventListener('mousedown', e => {
+        this.resizeHandles['N'].isMouseDown = true
+      })
       this.resizeHandles['E'].domElement.addEventListener('mousedown', e => {
         this.resizeHandles['E'].isMouseDown = true
       })
@@ -166,11 +186,6 @@
         this.titleDomElement.classList.remove(`${WINDOW_CLASS_IDENTIFIER}-title-focused`)
       }
     }
-
-    // decrementZIndex() {
-    //   --this.zIndex
-    //   this.domElement.style.zIndex = this.zIndex
-    // }
 
     setX(x) {
       this.x = x
@@ -216,11 +231,15 @@
 
 
     const resizeHandleDomElements = {
-      'E': document.createElement('div')
+      'N': document.createElement('div'),
+      'E': document.createElement('div'),
     }
+    resizeHandleDomElements['N'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-n`)
     resizeHandleDomElements['E'].setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-handle-e`)
 
     windowDomElement.appendChild(windowTitleDomElement)
+    windowDomElement.appendChild(resizeHandleDomElements['N'])
+    windowDomElement.appendChild(resizeHandleDomElements['E'])
 
     document.body.appendChild(windowDomElement)
     windowManager.addWindow(windowDomElement)

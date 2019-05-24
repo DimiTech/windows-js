@@ -204,8 +204,12 @@
       document.addEventListener('mousemove', e => { // This one is global
         // Title handler
         if (this.isMouseDownOnTitle && this.isMouseDownOnCloseBtn === false) {
-          this.setX(e.clientX - this.mouseDx)
-          this.setY(e.clientY - this.mouseDy)
+          if (e.clientX > 0 && e.clientX < window.innerWidth) {
+            this.setX(e.clientX - this.mouseDx)
+          }
+          if (e.clientY < window.innerHeight) {
+            this.setY(e.clientY - this.mouseDy)
+          }
         }
 
         // Resize handlers
@@ -289,21 +293,12 @@
     }
 
     setX(x) {
-      if (x <= 0) {
-        x = 0
-      }
-      else if (x + this.width > window.innerWidth) {
-        x = window.innerWidth - this.width
-      }
       this.x = x
       this.domElement.style.left = x + 'px'
     }
     setY(y) {
-      if (y <= 0) {
+      if (y < 0) {
         y = 0
-      }
-      else if (y + this.height > window.innerHeight) {
-        y = window.innerHeight - this.height
       }
       this.y = y
       this.domElement.style.top = y + 'px'

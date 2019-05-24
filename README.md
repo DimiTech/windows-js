@@ -4,3 +4,5 @@ A simple windowing experiment library  created just for fun... might come in han
 
 Live Demo:
 https://dusandimitric.com/windows-js/
+
+![Gif](https://github.com/DusanDimitric/windows-js/blob/master/demo.gif)

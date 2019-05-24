@@ -96,7 +96,7 @@
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-n`)[0],
           isMouseDown: false,
           moveHandler: e => {
-            const newY = e.clientY
+            const newY = e.clientY >= 0 ? e.clientY : 0
             const newHeight = this.y + this.height - newY
             if (newHeight >= Window.MIN_HEIGHT) {
               this.setHeight(newHeight)
@@ -116,7 +116,10 @@
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-e`)[0],
           isMouseDown: false,
           moveHandler: e => {
-            const newWidth = e.clientX - this.x
+            let newWidth = e.clientX - this.x
+            if (this.x + newWidth > window.innerWidth) {
+              newWidth = window.innerWidth - this.x
+            }
             this.setWidth(newWidth)
           },
         },
@@ -128,7 +131,10 @@
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-s`)[0],
           isMouseDown: false,
           moveHandler: e => {
-            const newHeight = e.clientY - this.y
+            let newHeight = e.clientY - this.y
+            if (this.y + newHeight > window.innerHeight) {
+              newHeight = window.innerHeight - this.y
+            }
             this.setHeight(newHeight)
           },
         },
@@ -140,7 +146,7 @@
           domElement: this.domElement.getElementsByClassName(`${WINDOW_CLASS_IDENTIFIER}-handle-w`)[0],
           isMouseDown: false,
           moveHandler: e => {
-            const newX = e.clientX
+            const newX = e.clientX >= 0 ? e.clientX : 0
             const newWidth = this.x + this.width - newX
             if (newWidth >= Window.MIN_WIDTH) {
               this.setWidth(newWidth)
@@ -283,10 +289,22 @@
     }
 
     setX(x) {
+      if (x <= 0) {
+        x = 0
+      }
+      else if (x + this.width > window.innerWidth) {
+        x = window.innerWidth - this.width
+      }
       this.x = x
       this.domElement.style.left = x + 'px'
     }
     setY(y) {
+      if (y <= 0) {
+        y = 0
+      }
+      else if (y + this.height > window.innerHeight) {
+        y = window.innerHeight - this.height
+      }
       this.y = y
       this.domElement.style.top = y + 'px'
     }

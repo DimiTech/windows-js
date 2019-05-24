@@ -1,8 +1,10 @@
 .js-window {
+  font-family: sans-serif;
+  letter-spacing: 1.5px;
+
   position: fixed;
   border: 2px outset;
   background-color: Gainsboro;
-  font-family: monospace;
 
   /* Disable text selection */
   -webkit-touch-callout: none;
@@ -18,9 +20,8 @@
   padding: 2px 4px;
 
   color: white;
-  font-size: 12px;
-  font-family: sans-serif;
-  letter-spacing: 1.5px;
+  font-size: 11px;
+  line-height: 1.6;
   font-weight: bold;
 
   /* Prevent the text from wraping, just cut it as it overflows */
@@ -80,9 +81,16 @@
 
 .js-window-pane-item {
   background: url(../img/win-98_folder_icon_large.png) no-repeat 0 0;
-  height: 32px;
   width: 32px;
+  height: 26px;
+  padding-top: 32px;
   margin: 5px;
+  font-size: 9px;
+  text-align: center;
+  line-height: 0.9;
+  letter-spacing: 0.4px;
+  overflow: hidden;
+  hyphens: auto;
 }
 
 .js-window-handle-n {

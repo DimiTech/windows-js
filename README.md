@@ -6,3 +6,10 @@ Live Demo:
 https://dusandimitric.com/windows-js/
 
 ![Gif](https://github.com/DusanDimitric/windows-js/blob/master/demo.gif)
+
+## Features
+
+* Moving windows around
+* Resizing windows
+* Window title icons
+* Focusing on active window

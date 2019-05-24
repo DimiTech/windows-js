@@ -20,7 +20,8 @@
   color: white;
   font-size: 12px;
   font-family: sans-serif;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  font-weight: bold;
 
   /* Prevent the text from wraping, just cut it as it overflows */
   white-space: nowrap;

@@ -62,7 +62,9 @@
 
 .js-window-btn-close {
   float: right;
-  background: url(../img/win-98_close_btn.png) no-repeat 0 0;
+  background-image: url(../img/win-98_close_btn.png);
+  background-repeat: no-repeat;
+  background-position: 0 0;
   margin-top: 1px;
   width: 16px;
   height: 14px;

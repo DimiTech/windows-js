@@ -159,6 +159,7 @@
       }
 
       // Events
+      this.isMouseDownOnCloseBtn = false
       this.isMouseDownOnTitle = false
       this.addEventListeners()
     }
@@ -176,7 +177,10 @@
       // Title dragging
       document.addEventListener('mouseup', e => { // This one is global
         this.isMouseDownOnTitle = false
-        this.btnCloseDomElement.style.backgroundImage = "url('./img/win-98_close_btn.png')"
+        this.isMouseDownOnCloseBtn = false
+        if (this.btnCloseDomElement.style.backgroundImage !== 'url(./img/win-98_close_btn.png)') {
+          this.btnCloseDomElement.style.backgroundImage = 'url(./img/win-98_close_btn.png)'
+        }
         this.resizeHandles['N' ].isMouseDown = false
         this.resizeHandles['NE'].isMouseDown = false
         this.resizeHandles['E' ].isMouseDown = false
@@ -193,7 +197,7 @@
       })
       document.addEventListener('mousemove', e => { // This one is global
         // Title handler
-        if (this.isMouseDownOnTitle) {
+        if (this.isMouseDownOnTitle && this.isMouseDownOnCloseBtn === false) {
           this.setX(e.clientX - this.mouseDx)
           this.setY(e.clientY - this.mouseDy)
         }
@@ -231,7 +235,8 @@
 
       // Control buttons
       this.btnCloseDomElement.addEventListener('mousedown', e => {
-        this.btnCloseDomElement.style.backgroundImage = "url('./img/win-98_close_btn_pressed.png')"
+        this.isMouseDownOnCloseBtn = true
+        this.btnCloseDomElement.style.backgroundImage = 'url(./img/win-98_close_btn_pressed.png)'
       })
       this.btnCloseDomElement.addEventListener('click', e => {
         this.windowManager.destroyWindow(this)

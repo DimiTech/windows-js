@@ -317,11 +317,15 @@
 
     const windowTitleDomElement = document.createElement('div')
     windowTitleDomElement.setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-title`)
-    windowTitleDomElement.textContent = windowModel.title || ''
+
+    const windowTitleTextDomElement = document.createElement('span')
+    windowTitleTextDomElement.setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-title-text`)
+    windowTitleTextDomElement.textContent = windowModel.title || ''
 
     const controlBtnClose = document.createElement('span')
     controlBtnClose.setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-btn-close`)
 
+    windowTitleDomElement.appendChild(windowTitleTextDomElement)
     windowTitleDomElement.appendChild(controlBtnClose)
 
 

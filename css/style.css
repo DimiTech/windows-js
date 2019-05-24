@@ -19,6 +19,8 @@
   height: 16px;
   padding: 2px 4px;
 
+  display: flex;
+
   color: white;
   font-size: 11px;
   line-height: 1.6;
@@ -56,8 +58,15 @@
   background: url(../img/win-98_folder_icon_title.png) no-repeat 0 0;
   float: left;
   width: 16px;
+  min-width: 16px;
   height: 16px;
   margin-right: 4px;
+}
+
+.js-window-title-text {
+  float: left;
+  overflow: hidden;
+  flex: 1 1 auto;
 }
 
 .js-window-btn-close {
@@ -66,7 +75,9 @@
   background-repeat: no-repeat;
   background-position: 0 0;
   margin-top: 1px;
+  margin-left: 5px;
   width: 16px;
+  min-width: 16px;
   height: 14px;
 }
 

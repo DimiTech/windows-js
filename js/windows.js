@@ -320,7 +320,6 @@
     windowTitleDomElement.textContent = windowModel.title || ''
 
     const controlBtnClose = document.createElement('span')
-    controlBtnClose.textContent = 'x'
     controlBtnClose.setAttribute('class', `${WINDOW_CLASS_IDENTIFIER}-btn-close`)
 
     windowTitleDomElement.appendChild(controlBtnClose)

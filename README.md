@@ -13,3 +13,14 @@ https://dusandimitric.com/windows-js/
 * Resizing windows
 * Window title icons
 * Focusing on active window
+
+## Development
+
+```
+npm i
+npm start
+# Run a Live Server of your preference. I like the VS Code Live Server plugin. It's simple and it just works.
+```
+
+Make sure to commit the generated files from `./dist/` since that is used to run
+the online demo.
